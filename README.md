@@ -64,7 +64,7 @@
 
 
 
- + Сылка на проект  [github page](https://sanyaman.github.io/mesto-react-main/)! 
+ + Сылка на проект  [github page](https:/sanyaman.github.io/mesto-react/)
  
  
  
