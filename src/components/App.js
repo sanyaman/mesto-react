@@ -15,17 +15,17 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 function App() {
 
   function handleEditAvatarClick() {
-    setAvatarPopup(true);
+    setIsAvatarPopupOpen(true);
   }
   function handleEditProfileClick() {
-    setProfilePopup(true);
+    setIsEditProfilePopupOpen(true);
   }
   function handleAddPlaceClick() {
-    setAddPopup(true);
+    setIsAddProfilePopupOpen(true);
   }
 
   function handleCardClick(card) {
-    setSelectedCard(card);
+    setIsSelectedCard(card);
   }
 
   function handleCardLike(card, isLiked) {
@@ -44,12 +44,12 @@ function App() {
       .catch((err) => console.log('Ошибка:', err))
       .finally(() => {
         setIsLoading(false)
-        setDeletePopup(false);
+        setIsDeletePopupOpen(false);
       })
   }
 
   function handleCardDelete(id) {
-    setDeletePopup(true)
+    setIsDeletePopupOpen(true)
     setIsConfirmed(id)
   }
 
@@ -58,7 +58,7 @@ function App() {
     api.setUserData(user)
       .then((newUser) => {
         setCurrentUser(newUser);
-        setProfilePopup(false);
+        setIsEditProfilePopupOpen(false);
       })
       .catch((err) => console.log('Ошибка:', err))
       .finally(() => setIsLoading(false))
@@ -69,7 +69,7 @@ function App() {
     api.setUserAvatar(link)
       .then((newUser) => {
         setCurrentUser(newUser);
-        setAvatarPopup(false);
+        setIsAvatarPopupOpen(false);
       })
       .catch((err) => console.log('Ошибка:', err))
       .finally(() => setIsLoading(false))
@@ -80,27 +80,30 @@ function App() {
     api.uploadCard(card)
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        setAddPopup(false);
+        setIsAddProfilePopupOpen(false);
       })
       .catch((err) => console.log('Ошибка:', err))
       .finally(() => setIsLoading(false))
   }
 
   function closeAllPopups() {
-    setAvatarPopup(false);
-    setProfilePopup(false);
-    setAddPopup(false);
-    setDeletePopup(false);
-    setSelectedCard({});
+    setIsAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddProfilePopupOpen(false);
+    setIsDeletePopupOpen(false);
+    setIsSelectedCard({});
   }
+  
+  
+
 
   const [isConfirmed, setIsConfirmed] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [isEditProfilePopupOpen, setProfilePopup] = useState(false);
-  const [isAddPlacePopupOpen, setAddPopup] = useState(false);
-  const [isEditAvatarPopupOpen, setAvatarPopup] = useState(false);
-  const [isDeletePopupOpen, setDeletePopup] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({})
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddProfilePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [selectedCard, setIsSelectedCard] = useState({})
   const [currentUser, setCurrentUser] = useState(
     {
       name: "Жак",
