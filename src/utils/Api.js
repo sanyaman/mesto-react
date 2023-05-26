@@ -16,21 +16,21 @@ class Api {
     }
 
     getInitialCards() {
-        return this._request(this._baseUrl + 'cards', {
+        return this._request(`${this._baseUrl}cards`, {
             headers:
                 { authorization: this._headers.authorization }
         })
     }
 
     getUserData() {
-        return this._request(this._baseUrl + 'users/me', {
+        return this._request(`${this._baseUrl}users/me`, {
             headers:
                 { authorization: this._headers.authorization }
         })
     }
 
     setUserData(userData) {
-        return this._request(this._baseUrl + 'users/me', {
+        return this._request(`${this._baseUrl}users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
@@ -41,7 +41,7 @@ class Api {
     }
 
     uploadCard(cardData) {
-        return this._request(this._baseUrl + 'cards', {
+        return this._request(`${this._baseUrl}cards`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
@@ -52,7 +52,7 @@ class Api {
     }
 
     removeCard(cardId) {
-        return this._request(this._baseUrl + 'cards/' + cardId, {
+        return this._request(`${this._baseUrl}cards/${cardId}`, {
             method: 'DELETE',
             headers: this._headers,
         })
@@ -63,14 +63,14 @@ class Api {
         if (!methodSwitch) {
             method = 'PUT'
         }
-        return this._request(this._baseUrl + 'cards/' + cardId + '/likes', {
+        return this._request(`${this._baseUrl}cards/${cardId}/likes`, {
             method: method,
             headers: this._headers,
         })
     }
 
     setUserAvatar(avatarLink) {
-        return this._request(this._baseUrl + 'users/me' + '/avatar', {
+        return this._request(`${this._baseUrl}users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
@@ -79,7 +79,6 @@ class Api {
         })
     }
 }
-
 export const api = new Api({
     baseUrl: "https://mesto.nomoreparties.co/v1/cohort-64/",
     headers: {

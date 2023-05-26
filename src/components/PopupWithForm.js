@@ -1,11 +1,20 @@
-function PopupWithForm({ name, title, isOpen, onClose, children, buttonText }) {
+function PopupWithForm({ name, title, isOpen, onClose, onSubmit, children }) {
+
   return (
     <div className={`popup popup_${name} ${isOpen} `} aria-label={name}>
-      <div className={`popup__container popup__container-${name}`}>
-        <button onClick={onClose} className={`popup__close popup__close-${name}`} type="button"/>
-        <form className="popup__form" name={`popupForm${name}`} >
-          <h2 className="popup__profile-name">{title}</h2>{children}
-          <button name="saveBtn" type="submit" className={`popup__sumbit popup__sumbit-${name}`}>{buttonText}</button>
+      <div className={`popup__container popup__container-${name} ${isOpen}`} >
+        <button
+          onClick={onClose}
+          className='popup__close'
+          type="button"
+        />
+        <form
+          onSubmit={onSubmit}
+          className={`popup__form popup__form-${name}`}
+          name={`popupForm${name}`}
+        >
+          <h2 className="popup__profile-name">{title}</h2>
+          {children}
         </form>
       </div>
     </div>);

@@ -5,6 +5,7 @@
     margin-right: 30px;
     object-fit: cover;
     transition: visibility .4s,opacity .5s linear;
+
   }
 
   .profile__avatar:hover {
