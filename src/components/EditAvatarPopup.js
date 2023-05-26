@@ -1,9 +1,12 @@
 import PopupWithForm from "./PopupWithForm";
 import { useRef, useEffect } from "react";
 
-
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     const linkRef = useRef();
+
+    useEffect(() => {
+        linkRef.current.value = "";
+    }, [isOpen])
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -11,10 +14,6 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
             link: linkRef.current.value
         });
     }
-
-    useEffect(() => {
-        linkRef.current.value = "";
-    }, [isOpen])
 
     return (
         <PopupWithForm

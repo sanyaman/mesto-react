@@ -3,6 +3,14 @@ import { useEffect, useState } from "react";
 
 function AddPlacePopup({ isOpen, isLoading, onClose, onAddPlace }) {
 
+    const [name, setName] = useState("");
+    const [link, setLink] = useState("");
+
+    useEffect(() => {
+        setName("");
+        setLink("");
+    }, [isOpen])
+
     function handleSubmit(e) {
         e.preventDefault();
         onAddPlace({
@@ -17,14 +25,6 @@ function AddPlacePopup({ isOpen, isLoading, onClose, onAddPlace }) {
     function handleChangeLink(e) {
         setLink(e.target.value);
     }
-
-    const [name, setName] = useState("");
-    const [link, setLink] = useState("");
-
-    useEffect(() => {
-        setName("");
-        setLink("");
-    }, [isOpen])
 
     return (
         <PopupWithForm
@@ -69,8 +69,5 @@ function AddPlacePopup({ isOpen, isLoading, onClose, onAddPlace }) {
             </figcaption>
         </PopupWithForm>);
 }
-
-
-
 
 export default AddPlacePopup;

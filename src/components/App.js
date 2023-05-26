@@ -11,8 +11,31 @@ import ImagePopup from './ImagePopup.js';
 import { api } from '../utils/Api.js'
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js'
 
-
 function App() {
+  
+  const [isConfirmed, setIsConfirmed] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddProfilePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [selectedCard, setIsSelectedCard] = useState({})
+  const [currentUser, setCurrentUser] = useState(
+    {
+      name: "Жак",
+      about: "Доширак",
+    });
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    Promise.all([api.getUserData(), api.getInitialCards()])
+      .then(([{ name, about, avatar, _id }, cardList]) => {
+        setCurrentUser({ name, about, avatar, _id })
+        setCards(cardList)
+      }
+      )
+      .catch((err) => console.log('Ошибка:', err))
+  }, []);
 
   function handleEditAvatarClick() {
     setIsAvatarPopupOpen(true);
@@ -93,33 +116,6 @@ function App() {
     setIsDeletePopupOpen(false);
     setIsSelectedCard({});
   }
-  
-  
-
-
-  const [isConfirmed, setIsConfirmed] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddProfilePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
-  const [selectedCard, setIsSelectedCard] = useState({})
-  const [currentUser, setCurrentUser] = useState(
-    {
-      name: "Жак",
-      about: "Доширак",  
-    });
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    Promise.all([api.getUserData(), api.getInitialCards()])
-      .then(([{ name, about, avatar, _id }, cardList]) => {
-        setCurrentUser({ name, about, avatar, _id })
-        setCards(cardList)
-      }
-      )
-      .catch((err) => console.log('Ошибка:', err))
-  }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

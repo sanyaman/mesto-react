@@ -4,6 +4,14 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
 
+    const [name, setName] = useState("Name");
+    const [description, setDescription] = useState("About");
+    const currentUser = useContext(CurrentUserContext);
+
+    useEffect(() => {
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+    }, [currentUser, isOpen]);
     function handleChangeName(e) {
         setName(e.target.value);
     }
@@ -19,16 +27,6 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
             about: description
         });
     }
-
-    const [name, setName] = useState("Name");
-    const [description, setDescription] = useState("About");
-
-    const currentUser = useContext(CurrentUserContext);
-
-    useEffect(() => {
-        setName(currentUser.name);
-        setDescription(currentUser.about);
-    }, [currentUser, isOpen]);
 
     return (
         <PopupWithForm
@@ -50,8 +48,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
                         required
                         minLength="2"
                         maxLength="40"
+                        value={name}
                     />
-                    <span value={name} className="popup__fill-error" id="input-username-error" />
+                    <span className="popup__fill-error" id="input-username-error" />
                     <input
                         onChange={handleChangeDescription}
                         type="text"
@@ -62,8 +61,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
                         required
                         minLength="2"
                         maxLength="200"
+                        value={description}
                     />
-                    <span value={description} className="popup__fill-error" id="input-useractivity-error" />
+                    <span className="popup__fill-error" id="input-useractivity-error" />
                 </fieldset>
                 <button
                     name="saveBtn"
